@@ -1,5 +1,5 @@
 create type program as enum ('profession', 'intensive');
-create type user_role as enum ('student','teacher', 'admin');
+create type user_role as enum ('Student','Teacher', 'Admin');
 create type enrollment_status as enum ('active', 'pending', 'cancelled', 'completed');
 create type payments_status as enum ('pending', 'paid', 'failed', 'refunded');
 create type prog_compl_status as enum ('active', 'completed', 'pending', 'cancelled');
@@ -64,7 +64,7 @@ create table if not exists teaching_groups (
     updated_at date
 );
 
-create table if not exists users (
+create table if not exists users (DISTINCT
     id bigint PRIMARY KEY GENERATED ALWAYS AS IDENTITY,
     name text,
     email text,
@@ -75,7 +75,7 @@ create table if not exists users (
     updated_at date,
     deleted_at date
 );
-
+DISTINCT
 create table if not exists enrollments (
     id bigint PRIMARY KEY GENERATED ALWAYS AS IDENTITY,
     program_id bigint REFERENCES programs(id),
