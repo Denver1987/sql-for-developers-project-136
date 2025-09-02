@@ -64,7 +64,7 @@ create table if not exists teaching_groups (
     updated_at date
 );
 
-create table if not exists users (DISTINCT
+create table if not exists users (
     id bigint PRIMARY KEY GENERATED ALWAYS AS IDENTITY,
     name text,
     email text,
@@ -75,7 +75,7 @@ create table if not exists users (DISTINCT
     updated_at date,
     deleted_at date
 );
-DISTINCT
+
 create table if not exists enrollments (
     id bigint PRIMARY KEY GENERATED ALWAYS AS IDENTITY,
     program_id bigint REFERENCES programs(id),
