@@ -1,3 +1,9 @@
+create type program as enum ('profession', 'intensive');
+create type user_role as enum ('student','teacher', 'admin');
+create type enrollment_status as enum ('active', 'pending', 'cancelled', 'completed');
+create type payments_status as enum ('pending', 'paid', 'failed', 'refunded');
+create type prog_compl_status as enum ('active', 'completed', 'pending', 'cancelled');
+
 CREATE TABLE IF NOT EXISTS courses(
     id bigint PRIMARY KEY GENERATED ALWAYS AS IDENTITY,
     name text NOT NULL,
@@ -33,7 +39,7 @@ CREATE TABLE IF NOT EXISTS programs(
     id bigint PRIMARY KEY GENERATED ALWAYS AS IDENTITY,
     name text NOT NULL,
     price numeric NOT NULL,
-    program_type text,
+    program_type program,
     created_at date,
     updated_at date
 );
@@ -62,9 +68,50 @@ create table if not exists users (
     name text,
     email text,
     password_hash text,
-    role text,
+    role user_role,
     teaching_group_id bigint REFERENCES teaching_groups(id),
     created_at date,
     updated_at date,
     deleted_at date
 );
+
+create table if not exists enrollments (
+    id bigint PRIMARY KEY GENERATED ALWAYS AS IDENTITY,
+    program_id bigint REFERENCES programs(id),
+    status enrollment_status,
+    user_id bigint REFERENCES users(id),
+    created_at date,
+    updated_at date
+);
+
+create table if not exists payments (
+    id bigint PRIMARY KEY GENERATED ALWAYS AS IDENTITY,
+    enrollment_id bigint REFERENCES enrollments(id),
+    amount numeric,
+    paid_at timestamptz,
+    status payments_status,
+    updated_at timestamptz,
+    created_at timestamptz    
+);
+
+create table if not exists program_completions (
+    id bigint PRIMARY KEY GENERATED ALWAYS AS IDENTITY,
+    user_id bigint REFERENCES users(id),
+    program_id bigint REFERENCES programs(id),
+    status prog_compl_status,
+    started_at date,
+    created_at date,
+    updated_at date,
+    completed_at date
+);
+
+create table if not exists certificates (
+    id bigint PRIMARY KEY GENERATED ALWAYS AS IDENTITY,
+    user_id bigint REFERENCES users(id),
+    program_id bigint REFERENCES programs(id),
+    url text,
+    created_at date,
+    issued_at date,
+    updated_at date
+);
+
