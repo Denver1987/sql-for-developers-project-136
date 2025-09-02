@@ -21,7 +21,7 @@ CREATE TABLE IF NOT EXISTS lessons(
 
 CREATE TABLE IF NOT EXISTS modules(
     id bigint PRIMARY KEY GENERATED ALWAYS AS IDENTITY,
-    program_id bigint PRIMARY KEY,
+    program_id bigint,
     name text NOT NULL,
     description text,
     created_at date,
