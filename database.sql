@@ -143,7 +143,7 @@ create table if not exists discussions (
     updated_at date
 );
 
-create table if not exists blog (
+create table if not exists blogs (
     id bigint PRIMARY KEY GENERATED ALWAYS AS IDENTITY,
     user_id bigint REFERENCES users(id),
     name text,
