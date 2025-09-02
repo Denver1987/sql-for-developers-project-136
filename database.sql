@@ -38,3 +38,14 @@ CREATE TABLE IF NOT EXISTS programs(
     updated_at date
 );
 
+create table if not exists program_module (
+    program_id bigint not null REFERENCES programs(id),
+    module_id bigint not null REFERENCES modules(id),
+    PRIMARY KEY (program_id, module_id)
+);
+
+create table if not exists module_courses (
+    module_id bigint not null REFERENCES modules(id),
+    course_id bigint not null REFERENCES courses(id),
+    PRIMARY KEY (module_id, course_id)
+)
