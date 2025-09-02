@@ -48,4 +48,23 @@ create table if not exists course_modules (
     module_id bigint not null REFERENCES modules(id),
     course_id bigint not null REFERENCES courses(id),
     PRIMARY KEY (module_id, course_id)
-)
+);
+
+create table if not exists teaching_groups (
+    id bigint PRIMARY KEY GENERATED ALWAYS AS IDENTITY,
+    slug text,
+    created_at date,
+    updated_at date
+);
+
+create table if not exists users (
+    id bigint PRIMARY KEY GENERATED ALWAYS AS IDENTITY,
+    name text,
+    email text,
+    password_hash text,
+    role text,
+    teaching_group_id bigint REFERENCES teaching_groups(id),
+    created_at date,
+    updated_at date,
+    deleted_at date
+);
