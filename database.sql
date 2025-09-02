@@ -120,7 +120,7 @@ create table if not exists quizzes (
     id bigint PRIMARY KEY GENERATED ALWAYS AS IDENTITY,
     name text,
     lesson_id bigint REFERENCES lessons(id),
-    content json,
+    content jsonb,
     created_at date,
     updated_at date
 );
@@ -147,7 +147,7 @@ create table if not exists blogs (
     id bigint PRIMARY KEY GENERATED ALWAYS AS IDENTITY,
     user_id bigint REFERENCES users(id),
     name text,
-    content json,
+    content jsonb,
     status blog_status,
     created_at date,
     updated_at date
