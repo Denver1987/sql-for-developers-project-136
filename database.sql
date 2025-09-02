@@ -1,8 +1,16 @@
-CREATE TABLE if not exists lessons(
+CREATE TABLE IF NOT EXISTS courses(
+    id bigint PRIMARY KEY GENERATED ALWAYS AS IDENTITY,
+    name text NOT NULL,
+    description text,
+    created_at date,
+    updated_at date
+);
+
+CREATE TABLE IF NOT EXISTS lessons(
     id bigint PRIMARY KEY GENERATED ALWAYS AS IDENTITY,
     name text NOT NULL,
     content text,
-    course_id bigint references courses(id),
+    course_id bigint REFERENCES courses(id),
     video_link text,
     -- squawk-ignore prefer-bigint-over-int
     position_in_course int,
@@ -11,15 +19,7 @@ CREATE TABLE if not exists lessons(
     course_link text
 );
 
-create table if not exists courses (
-    id bigint PRIMARY KEY GENERATED ALWAYS AS IDENTITY,
-    name text NOT NULL,
-    description text,
-    created_at date,
-    updated_at date
-);
-
-create table if not exists modules (
+CREATE TABLE IF NOT EXISTS modules(
     id bigint PRIMARY KEY GENERATED ALWAYS AS IDENTITY,
     program_id bigint PRIMARY KEY,
     name text NOT NULL,
@@ -28,11 +28,12 @@ create table if not exists modules (
     updated_at date
 );
 
-create table if not exists programs (
+CREATE TABLE IF NOT EXISTS programs(
     id bigint PRIMARY KEY GENERATED ALWAYS AS IDENTITY,
     name text NOT NULL,
-    price numeric not null,
+    price numeric NOT NULL,
     type text,
     created_at date,
     updated_at date
 );
+
