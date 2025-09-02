@@ -3,6 +3,7 @@ create type user_role as enum ('student','teacher', 'admin');
 create type enrollment_status as enum ('active', 'pending', 'cancelled', 'completed');
 create type payments_status as enum ('pending', 'paid', 'failed', 'refunded');
 create type prog_compl_status as enum ('active', 'completed', 'pending', 'cancelled');
+create type blog_status as enum ('created', 'in moderation', 'published', 'archived');
 
 CREATE TABLE IF NOT EXISTS courses(
     id bigint PRIMARY KEY GENERATED ALWAYS AS IDENTITY,
@@ -115,3 +116,39 @@ create table if not exists certificates (
     updated_at date
 );
 
+create table if not exists quizzes (
+    id bigint PRIMARY KEY GENERATED ALWAYS AS IDENTITY,
+    name text,
+    lesson_id bigint REFERENCES lessons(id),
+    content json,
+    created_at date,
+    updated_at date
+);
+
+create table if not exists exercises (
+    id bigint PRIMARY KEY GENERATED ALWAYS AS IDENTITY,
+    lesson_id bigint REFERENCES lessons(id),
+    name text,
+    url text,
+    created_at date,
+    updated_at date
+);
+
+create table if not exists discussions (
+    id bigint PRIMARY KEY GENERATED ALWAYS AS IDENTITY,
+    lesson_id bigint REFERENCES lessons(id),
+    user_id bigint REFERENCES users(id),
+    text text,
+    created_at date,
+    updated_at date
+);
+
+create table if not exists blog (
+    id bigint PRIMARY KEY GENERATED ALWAYS AS IDENTITY,
+    user_id bigint REFERENCES users(id),
+    name text,
+    content json,
+    status blog_status,
+    created_at date,
+    updated_at date
+);
