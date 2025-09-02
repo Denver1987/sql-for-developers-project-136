@@ -138,7 +138,7 @@ create table if not exists discussions (
     id bigint PRIMARY KEY GENERATED ALWAYS AS IDENTITY,
     lesson_id bigint REFERENCES lessons(id),
     user_id bigint REFERENCES users(id),
-    text text,
+    text jsonb,
     created_at date,
     updated_at date
 );
@@ -147,7 +147,7 @@ create table if not exists blogs (
     id bigint PRIMARY KEY GENERATED ALWAYS AS IDENTITY,
     user_id bigint REFERENCES users(id),
     name text,
-    content jsonb,
+    content text,
     status blog_status,
     created_at date,
     updated_at date
