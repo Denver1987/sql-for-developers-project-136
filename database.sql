@@ -1,4 +1,4 @@
-create type program as enum ('profession', 'intensive');
+create type program as enum ('Profession', 'Intensive', 'Test');
 create type user_role as enum ('Student','Teacher', 'Admin');
 create type enrollment_status as enum ('active', 'pending', 'cancelled', 'completed');
 create type payments_status as enum ('pending', 'paid', 'failed', 'refunded');
